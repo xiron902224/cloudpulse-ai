@@ -1,0 +1,194 @@
+version: '3.8'
+
+services:
+  # PostgreSQL con TimescaleDB para métricas
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: cloudpulse-postgres
+    environment:
+      POSTGRES_DB: cloudpulse
+      POSTGRES_USER: cloudpulse
+      POSTGRES_PASSWORD: cloudpulse_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cloudpulse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis para caché
+  redis:
+    image: redis:7-alpine
+    container_name: cloudpulse-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 64M
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # API Gateway en Go
+  api:
+    build:
+      context: ./services/api-go
+      dockerfile: Dockerfile
+    container_name: cloudpulse-api
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://cloudpulse:cloudpulse_dev@postgres:5432/cloudpulse?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      PORT: 8080
+      ENVIRONMENT: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./services/api-go:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  # Collector en Rust
+  collector:
+    build:
+      context: ./services/collector-rust
+      dockerfile: Dockerfile
+    container_name: cloudpulse-collector
+    ports:
+      - "9090:9090"
+    environment:
+      API_URL: http://api:8080
+      COLLECTOR_PORT: 9090
+      RUST_LOG: info
+    depends_on:
+      - api
+    volumes:
+      - ./services/collector-rust:/app
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+        reservations:
+          cpus: '0.10'
+          memory: 64M
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cloudpulse-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:8080
+      VITE_WS_URL: ws://localhost:8080
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  # Prometheus para métricas
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: cloudpulse-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./deployment/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=7d'
+      - '--storage.tsdb.retention.size=500MB'
+      - '--query.timeout=30s'
+      - '--query.max-concurrency=10'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+
+  # Grafana para dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: cloudpulse-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_HTTP_PORT: 3000
+      GF_DATABASE_WAL: "true"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ALERTING_ENABLED: "false"
+      GF_UNIFIED_ALERTING_ENABLED: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./deployment/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: cloudpulse-network
+    driver: bridge

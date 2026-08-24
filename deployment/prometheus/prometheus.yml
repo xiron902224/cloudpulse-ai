@@ -1,0 +1,51 @@
+# ============================================
+# Configuración de Prometheus
+# ============================================
+
+# Configuración global
+global:
+  scrape_interval: 15s      # Recolectar métricas cada 15 segundos
+  evaluation_interval: 15s  # Evaluar alertas cada 15 segundos
+  scrape_timeout: 10s       # Timeout máximo por recolección
+
+# Configuración de alertas (por ahora vacío)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+# Reglas de alertas (por ahora vacío)
+rule_files:
+  # - "alerts.yml"
+
+# ¿Qué servicios monitorear?
+scrape_configs:
+  # ---------- 1. PROMETHEUS (se monitorea a sí mismo) ----------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9091']
+    metrics_path: '/metrics'
+
+  # ---------- 2. API EN GO ----------
+  - job_name: 'api-go'
+    static_configs:
+      - targets: ['api:8080']
+    metrics_path: '/metrics'
+
+  # ---------- 3. COLLECTOR EN RUST ----------
+  - job_name: 'collector-rust'
+    static_configs:
+      - targets: ['collector:9090']
+    metrics_path: '/metrics'
+
+  # ---------- 4. POSTGRESQL (si usas postgres_exporter) ----------
+  # Comentado porque requiere un exporter adicional
+  # - job_name: 'postgres'
+  #   static_configs:
+  #     - targets: ['postgres-exporter:9187']
+
+  # ---------- 5. REDIS (si usas redis_exporter) ----------
+  # Comentado porque requiere un exporter adicional
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
