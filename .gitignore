@@ -1,0 +1,66 @@
+# Dependencias
+node_modules/
+vendor/
+target/
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Build
+dist/
+build/
+out/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite
+
+# ML models
+*.onnx
+*.pkl
+*.h5
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Go
+go.work
+go.work.sum
+
+# Rust
+Cargo.lock
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Coverage
+coverage/
+*.coverprofile
+
+# Temp
+tmp/
+temp/
+*.tmp
