@@ -10,28 +10,28 @@
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat&logo=kubernetes)](https://kubernetes.io)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Sistema de Monitoreo Cloud con IA Predictiva**
+**Cloud Monitoring System with Predictive AI**
 
-[Documentación](docs/) · [Reportar Bug](https://github.com/xiron9090/cloudpulse-ai/issues) · [Solicitar Feature](https://github.com/xiron9090/cloudpulse-ai/issues)
+[Documentation](docs/) · [Report a Bug](https://github.com/xiron9090/cloudpulse-ai/issues) · [Request a Feature](https://github.com/xiron9090/cloudpulse-ai/issues)
 
 </div>
 
-## 🎯 Visión General
+## 🎯 Overview
 
-CloudPulse AI es una plataforma SaaS de monitoreo cloud que utiliza **inteligencia artificial** para detectar anomalías, predecir fallos y optimizar costos en tiempo real.
+CloudPulse AI is a cloud monitoring SaaS platform that uses **artificial intelligence** to detect anomalies, predict failures, and optimize costs in real time.
 
-### ✨ Características Principales
+### ✨ Key Features
 
-- 🔍 **Detección de Anomalías en Tiempo Real** - Algoritmos ML avanzados
-- 📈 **Predicción de Escalado** - Forecasting con modelos LSTM
-- 💰 **Optimización de Costos** - Recomendaciones basadas en ML
-- 🤖 **AI Assistant** - ChatOps con procesamiento de lenguaje natural
-- 🚨 **Alertas Inteligentes** - Reducción de falsos positivos en 95%
-- 📊 **Dashboards Personalizables** - Visualización en tiempo real
-- 🔐 **Multi-tenancy** - Aislamiento completo entre clientes
-- 🌐 **Multi-cloud** - AWS, GCP, Azure, y on-premise
+- 🔍 **Real-Time Anomaly Detection** - Advanced ML algorithms
+- 📈 **Scaling Prediction** - Forecasting with LSTM models
+- 💰 **Cost Optimization** - ML-based recommendations
+- 🤖 **AI Assistant** - ChatOps with natural language processing
+- 🚨 **Smart Alerts** - 95% reduction in false positives
+- 📊 **Customizable Dashboards** - Real-time visualization
+- 🔐 **Multi-tenancy** - Complete tenant isolation
+- 🌐 **Multi-cloud** - AWS, GCP, Azure, and on-premises
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ┌─────────────┐ ┌──────────────┐ ┌─────────────────┐
 │ Frontend │────▶│ API Gateway │────▶│ Microservicios │
@@ -51,59 +51,59 @@ CloudPulse AI es una plataforma SaaS de monitoreo cloud que utiliza **inteligenc
 └──────────────┘ └─────────────────┘
 
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technology Stack
 
-| Componente | Tecnología | Justificación |
+| Component | Technology | Rationale |
 |------------|------------|---------------|
-| **Frontend** | React 18 + TypeScript | Type safety y rendimiento |
-| **API Gateway** | Go + Fiber | Alta concurrencia |
-| **Collector** | Rust + Tokio | Performance crítico |
-| **ML Service** | Python + FastAPI | Ecosistema ML |
-| **Base de Datos** | PostgreSQL + TimescaleDB | Datos temporales |
-| **Cache** | Redis | Baja latencia |
-| **Orquestación** | Kubernetes | Escalabilidad |
-| **IaC** | Terraform | Infraestructura reproducible |
-| **CI/CD** | GitHub Actions | Automatización |
-| **Monitoreo** | Prometheus + Grafana | Observabilidad |
-| **IA/ML** | ONNX Runtime + Groq | Inferencia eficiente |
+| **Frontend** | React 18 + TypeScript | Type safety and performance |
+| **API Gateway** | Go + Fiber | High concurrency |
+| **Collector** | Rust + Tokio | Critical performance |
+| **ML Service** | Python + FastAPI | ML ecosystem |
+| **Database** | PostgreSQL + TimescaleDB | Time-series data |
+| **Cache** | Redis | Low latency |
+| **Orchestration** | Kubernetes | Scalability |
+| **IaC** | Terraform | Reproducible infrastructure |
+| **CI/CD** | GitHub Actions | Automation |
+| **Monitoring** | Prometheus + Grafana | Observability |
+| **AI/ML** | ONNX Runtime + Groq | Efficient inference |
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### Prerrequisitos
+### Prerequisites
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 make install
 ```
-# Desarrollo Local
+# Local Development
 
-### Clonar el repositorio
+### Clone the repository
 git clone https://github.com/xiron9090/cloudpulse-ai.git
 cd cloudpulse-ai
 
-# Iniciar todos los servicios
+# Start all services
 docker-compose up -d
 
-# O desarrollo individual
-make dev-api      # Iniciar API Go
-make dev-frontend # Iniciar frontend React
-make dev-rust     # Iniciar collector Rust
+# Or run individual services
+make dev-api      # Start Go API
+make dev-frontend # Start React frontend
+make dev-rust     # Start Rust collector
 
-Configuración
-# Copiar variables de entorno
+Configuration
+# Copy environment variables
 cp .env.example .env
 
-# Editar con tus credenciales
+# Edit with your credentials
 nano .env
 
-📊 Métricas de Rendimiento
-Métrica	Valor
-Latencia API	< 50ms (P99)
+📊 Performance Metrics
+Metric	Value
+API Latency	< 50ms (P99)
 Throughput	10k req/s
 Uptime	99.99%
-Detección Anomalías	95.3% precision
-Falsos Positivos	< 2%
-Costo Infraestructura	$0/mes (tier gratuito)
+Anomaly Detection	95.3% precision
+False Positives	< 2%
+Infrastructure Cost	$0/month (free tier)
 
 
 🧪 Testing
@@ -121,14 +121,14 @@ make test-e2e
 make coverage
 
 
-📚 Documentación
+📚 Documentation
 Arquitectura
 
 API Reference
 
 Roadmap
 
-📄 Licencia
-Este proyecto está bajo la Licencia MIT - ver LICENSE para detalles.
+📄 License
+This project is licensed under the MIT License - see LICENSE for details.
 
 <div align="center"> <sub>Built with ❤️ by xiron9090</sub> </div> 

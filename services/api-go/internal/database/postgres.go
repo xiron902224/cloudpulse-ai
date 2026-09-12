@@ -1,40 +1,40 @@
 package database
 
 import (
-    "context"
-    "log"
-    "time"
+	"context"
+	"log"
+	"time"
 
-    "github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// Connect crea una conexión a PostgreSQL
+// Connect creates a PostgreSQL connection.
 func Connect(databaseURL string) *pgxpool.Pool {
-    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    defer cancel()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-    // Crear pool de conexiones
-    pool, err := pgxpool.New(ctx, databaseURL)
-    if err != nil {
-        log.Fatalf("Error conectando a PostgreSQL: %v", err)
-    }
+	// Create connection pool
+	pool, err := pgxpool.New(ctx, databaseURL)
+	if err != nil {
+		log.Fatalf("Error connecting to PostgreSQL: %v", err)
+	}
 
-    // Verificar conexión
-    if err := pool.Ping(ctx); err != nil {
-        log.Fatalf("Error verificando conexión a PostgreSQL: %v", err)
-    }
+	// Verify connection
+	if err := pool.Ping(ctx); err != nil {
+		log.Fatalf("Error verifying PostgreSQL connection: %v", err)
+	}
 
-    log.Println("✅ Conectado a PostgreSQL")
-    return pool
+	log.Println("✅ Connected to PostgreSQL")
+	return pool
 }
 
-// CreateTables crea las tablas necesarias
+// CreateTables creates the required tables.
 func CreateTables(pool *pgxpool.Pool) error {
-    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    defer cancel()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-    // SQL para crear tabla metrics
-    metricsTable := `
+	// SQL to create the metrics table
+	metricsTable := `
     CREATE TABLE IF NOT EXISTS metrics (
         id UUID PRIMARY KEY,
         cpu_usage FLOAT NOT NULL DEFAULT 0,
@@ -46,13 +46,13 @@ func CreateTables(pool *pgxpool.Pool) error {
         created_at TIMESTAMP NOT NULL DEFAULT NOW()
     );`
 
-    // Ejecutar creación de tabla metrics
-    if _, err := pool.Exec(ctx, metricsTable); err != nil {
-        return err
-    }
+	// Create the metrics table
+	if _, err := pool.Exec(ctx, metricsTable); err != nil {
+		return err
+	}
 
-    // SQL para crear tabla alerts
-    alertsTable := `
+	// SQL to create the alerts table
+	alertsTable := `
     CREATE TABLE IF NOT EXISTS alerts (
         id UUID PRIMARY KEY,
         severity VARCHAR(20) NOT NULL DEFAULT 'info',
@@ -62,11 +62,11 @@ func CreateTables(pool *pgxpool.Pool) error {
         updated_at TIMESTAMP
     );`
 
-    // Ejecutar creación de tabla alerts
-    if _, err := pool.Exec(ctx, alertsTable); err != nil {
-        return err
-    }
+	// Create the alerts table
+	if _, err := pool.Exec(ctx, alertsTable); err != nil {
+		return err
+	}
 
-    log.Println("✅ Tablas creadas correctamente")
-    return nil
+	log.Println("✅ Tables created successfully")
+	return nil
 }

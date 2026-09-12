@@ -92,11 +92,11 @@
             "uid": "prometheus"
           },
           "expr": "rate(http_requests_total[5m])",
-          "legendFormat": "Requests/seg",
+          "legendFormat": "Requests/sec",
           "refId": "A"
         }
       ],
-      "title": "Requests por segundo",
+      "title": "Requests per second",
       "type": "timeseries"
     },
     {
@@ -156,11 +156,11 @@
             "uid": "prometheus"
           },
           "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
-          "legendFormat": "P95 Latencia",
+          "legendFormat": "P95 Latency",
           "refId": "A"
         }
       ],
-      "title": "Latencia (P95)",
+      "title": "Latency (P95)",
       "type": "timeseries"
     },
     {
@@ -220,7 +220,7 @@
           "refId": "A"
         }
       ],
-      "title": "Uso de CPU",
+      "title": "CPU Usage",
       "type": "timeseries"
     },
     {
@@ -276,7 +276,7 @@
           "refId": "A"
         }
       ],
-      "title": "Uso de Memoria",
+      "title": "Memory Usage",
       "type": "timeseries"
     },
     {

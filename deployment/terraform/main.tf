@@ -1,11 +1,11 @@
 # ============================================
-# Infraestructura como Código (IaC)
+# Infrastructure as Code (IaC)
 # CloudPulse AI
 # ============================================
 # 
-# NOTA: Este archivo es para cuando uses AWS/GCP/Azure
-# Por ahora, con tier gratuito no lo necesitas
-# pero es buena práctica tenerlo documentado
+# NOTE: This file is for when you use AWS/GCP/Azure
+# You do not need it with the free tier for now,
+# but documenting it is good practice
 #
 # ============================================
 
@@ -19,7 +19,7 @@ terraform {
     }
   }
   
-  # Estado remoto (opcional)
+  # Remote state (optional)
   # backend "s3" {
   #   bucket = "cloudpulse-terraform-state"
   #   key    = "prod/terraform.tfstate"
@@ -27,32 +27,32 @@ terraform {
   # }
 }
 
-# Proveedor AWS
+# AWS provider
 provider "aws" {
   region = var.aws_region
 }
 
 # Variables
 variable "aws_region" {
-  description = "Región de AWS"
+  description = "AWS region"
   type        = string
   default     = "us-east-1"
 }
 
 variable "environment" {
-  description = "Entorno (dev, staging, prod)"
+  description = "Environment (dev, staging, prod)"
   type        = string
   default     = "dev"
 }
 
 variable "app_name" {
-  description = "Nombre de la aplicación"
+  description = "Application name"
   type        = string
   default     = "cloudpulse-ai"
 }
 
 # ============================================
-# RED (VPC)
+# NETWORK (VPC)
 # ============================================
 
 resource "aws_vpc" "main" {
@@ -110,12 +110,12 @@ resource "aws_route_table" "main" {
 }
 
 # ============================================
-# SEGURIDAD (Security Groups)
+# SECURITY (Security Groups)
 # ============================================
 
 resource "aws_security_group" "api" {
   name        = "${var.app_name}-api-sg"
-  description = "Security group para la API"
+  description = "Security group for the API"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -147,7 +147,7 @@ resource "aws_security_group" "api" {
 }
 
 # ============================================
-# BASE DE DATOS (RDS PostgreSQL)
+# DATABASE (RDS PostgreSQL)
 # ============================================
 
 resource "aws_db_instance" "postgres" {
@@ -174,13 +174,13 @@ resource "aws_db_instance" "postgres" {
 }
 
 variable "db_password" {
-  description = "Contraseña de la base de datos"
+  description = "Database password"
   type        = string
   sensitive   = true
 }
 
 # ============================================
-# CACHÉ (ElastiCache Redis)
+# CACHE (ElastiCache Redis)
 # ============================================
 
 resource "aws_elasticache_cluster" "redis" {
@@ -198,7 +198,7 @@ resource "aws_elasticache_cluster" "redis" {
 }
 
 # ============================================
-# COMPUTO (EC2 para API)
+# COMPUTE (EC2 for API)
 # ============================================
 
 resource "aws_instance" "api" {
@@ -210,9 +210,9 @@ resource "aws_instance" "api" {
 
   user_data = <<-EOF
     #!/bin/bash
-    # Script de inicio
-    echo "Iniciando API..."
-    # Aquí iría el despliegue de la API
+    # Startup script
+    echo "Starting API..."
+    # API deployment would go here
   EOF
 
   tags = {
@@ -226,16 +226,16 @@ resource "aws_instance" "api" {
 # ============================================
 
 output "api_url" {
-  description = "URL de la API"
+  description = "API URL"
   value       = "http://${aws_instance.api.public_ip}:8080"
 }
 
 output "database_endpoint" {
-  description = "Endpoint de PostgreSQL"
+  description = "PostgreSQL endpoint"
   value       = aws_db_instance.postgres.endpoint
 }
 
 output "redis_endpoint" {
-  description = "Endpoint de Redis"
+  description = "Redis endpoint"
   value       = aws_elasticache_cluster.redis.cache_nodes[0].address
 }

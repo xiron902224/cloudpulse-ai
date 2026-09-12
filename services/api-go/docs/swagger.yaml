@@ -48,19 +48,19 @@ definitions:
 host: localhost:8080
 info:
   contact: {}
-  description: API de monitoreo cloud con IA
+  description: Cloud monitoring API with AI
   title: CloudPulse AI API
   version: "1.0"
 paths:
   /api/v1/alerts:
     get:
-      description: Obtiene todas las alertas
+      description: Gets all alerts
       parameters:
-      - description: Filtrar por severidad
+      - description: Filter by severity
         in: query
         name: severity
         type: string
-      - description: Filtrar por estado
+      - description: Filter by status
         in: query
         name: status
         type: string
@@ -77,15 +77,15 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Listar alertas
+      summary: List alerts
       tags:
       - alerts
     post:
       consumes:
       - application/json
-      description: Crea una nueva alerta del sistema
+      description: Creates a new system alert
       parameters:
-      - description: Datos de la alerta
+      - description: Alert data
         in: body
         name: alert
         required: true
@@ -108,21 +108,21 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Crear alerta
+      summary: Create alert
       tags:
       - alerts
   /api/v1/alerts/{id}:
     put:
       consumes:
       - application/json
-      description: Actualiza una alerta existente
+      description: Updates an existing alert
       parameters:
-      - description: ID de la alerta
+      - description: Alert ID
         in: path
         name: id
         required: true
         type: string
-      - description: Datos a actualizar
+      - description: Data to update
         in: body
         name: alert
         required: true
@@ -145,18 +145,18 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Actualizar alerta
+      summary: Update alert
       tags:
       - alerts
   /api/v1/metrics:
     get:
-      description: Obtiene todas las métricas
+      description: Gets all metrics
       parameters:
-      - description: Máximo de resultados
+      - description: Maximum number of results
         in: query
         name: limit
         type: integer
-      - description: Saltar N resultados
+      - description: Skip N results
         in: query
         name: offset
         type: integer
@@ -173,15 +173,15 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Listar métricas
+      summary: List metrics
       tags:
       - metrics
     post:
       consumes:
       - application/json
-      description: Crea una nueva métrica de monitoreo
+      description: Creates a new monitoring metric
       parameters:
-      - description: Datos de la métrica
+      - description: Metric data
         in: body
         name: metric
         required: true
@@ -204,14 +204,14 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Crear métrica
+      summary: Create metric
       tags:
       - metrics
   /api/v1/metrics/{id}:
     delete:
-      description: Elimina una métrica por ID
+      description: Deletes a metric by ID
       parameters:
-      - description: ID de la métrica
+      - description: Metric ID
         in: path
         name: id
         required: true
@@ -224,13 +224,13 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Eliminar métrica
+      summary: Delete metric
       tags:
       - metrics
     get:
-      description: Obtiene una métrica por ID
+      description: Gets a metric by ID
       parameters:
-      - description: ID de la métrica
+      - description: Metric ID
         in: path
         name: id
         required: true
@@ -247,12 +247,12 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Obtener métrica
+      summary: Get metric
       tags:
       - metrics
   /health:
     get:
-      description: Devuelve el estado de la API
+      description: Returns the API status
       produces:
       - application/json
       responses:
@@ -260,7 +260,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handlers.HealthResponse'
-      summary: Verificar estado del servicio
+      summary: Check service health
       tags:
       - health
 swagger: "2.0"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================
-# Datos de prueba para CloudPulse AI
+# Test data for CloudPulse AI
 # ============================================
 
 # Colores
@@ -12,11 +12,11 @@ NC='\033[0m'
 
 echo ""
 echo "=========================================="
-echo "  🌱 Cargando datos de prueba"
+echo "  🌱 Loading test data"
 echo "=========================================="
 echo ""
 
-# ---------- CONFIGURACIÓN ----------
+# ---------- CONFIGURATION ----------
 API_URL="http://localhost:8080"
 COLLECTOR_URL="http://localhost:9090"
 
@@ -27,16 +27,16 @@ echo ""
 if curl -s "$API_URL/health" > /dev/null 2>&1; then
     echo -e "${GREEN}✅ API corriendo en $API_URL${NC}"
 else
-    echo -e "${RED}❌ API no está corriendo en $API_URL${NC}"
-    echo "   Inicia con: make dev-api"
+    echo -e "${RED}❌ API is not running at $API_URL${NC}"
+    echo "   Start with: make dev-api"
     echo "   O: docker-compose up -d api"
     exit 1
 fi
 
 echo ""
 
-# ---------- INSERTAR MÉTRICAS ----------
-echo "📊 Generando métricas de prueba..."
+# ---------- INSERT METRICS ----------
+echo "📊 Generating test metrics..."
 echo ""
 
 for i in $(seq 1 50); do
@@ -60,18 +60,18 @@ for i in $(seq 1 50); do
         }" 2>/dev/null)
     
     if [ $((i % 10)) -eq 0 ]; then
-        echo "   ✅ $i/50 métricas enviadas"
+        echo "   ✅ $i/50 metrics sent"
     fi
     
     sleep 0.1
 done
 
 echo ""
-echo -e "${GREEN}✅ 50 métricas generadas${NC}"
+echo -e "${GREEN}✅ 50 metrics generated${NC}"
 echo ""
 
-# ---------- INSERTAR ALERTAS ----------
-echo "🚨 Generando alertas de prueba..."
+# ---------- INSERT ALERTS ----------
+echo "🚨 Generating test alerts..."
 echo ""
 
 ALERTS=(
@@ -89,19 +89,19 @@ for alert in "${ALERTS[@]}"; do
     sleep 0.1
 done
 
-echo -e "${GREEN}✅ 5 alertas generadas${NC}"
+echo -e "${GREEN}✅ 5 alerts generated${NC}"
 echo ""
 
-# ---------- RESULTADO FINAL ----------
+# ---------- FINAL RESULT ----------
 echo "=========================================="
-echo "  ✅ Datos de prueba cargados!"
+echo "  ✅ Test data loaded!"
 echo "=========================================="
 echo ""
-echo "Ahora puedes:"
+echo "You can now:"
 echo "  1. Abrir el frontend en http://localhost:3000"
-echo "  2. Ver los gráficos con datos"
-echo "  3. Probar las alertas"
+echo "  2. View charts with data"
+echo "  3. Test alerts"
 echo ""
-echo "Para ver los datos:"
+echo "To view the data:"
 echo "  curl http://localhost:8080/api/v1/metrics"
 echo ""

@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # PostgreSQL con TimescaleDB para métricas
+  # PostgreSQL with TimescaleDB for metrics
   postgres:
     image: timescale/timescaledb:latest-pg16
     container_name: cloudpulse-postgres
@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # Redis para caché
+  # Redis for caching
   redis:
     image: redis:7-alpine
     container_name: cloudpulse-redis
@@ -50,7 +50,7 @@ services:
       timeout: 3s
       retries: 5
 
-  # API Gateway en Go
+  # Go API gateway
   api:
     build:
       context: ./services/api-go
@@ -129,7 +129,7 @@ services:
           cpus: '0.25'
           memory: 256M
 
-  # Prometheus para métricas
+  # Prometheus for metrics
   prometheus:
     image: prom/prometheus:latest
     container_name: cloudpulse-prometheus
@@ -154,7 +154,7 @@ services:
           cpus: '0.10'
           memory: 128M
 
-  # Grafana para dashboards
+  # Grafana for dashboards
   grafana:
     image: grafana/grafana:latest
     container_name: cloudpulse-grafana

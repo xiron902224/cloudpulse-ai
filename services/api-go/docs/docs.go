@@ -17,24 +17,24 @@ const docTemplate = `{
     "paths": {
         "/api/v1/alerts": {
             "get": {
-                "description": "Obtiene todas las alertas",
+                "description": "Gets all alerts",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "alerts"
                 ],
-                "summary": "Listar alertas",
+                "summary": "List alerts",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Filtrar por severidad",
+                        "description": "Filter by severity",
                         "name": "severity",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "Filtrar por estado",
+                        "description": "Filter by status",
                         "name": "status",
                         "in": "query"
                     }
@@ -57,7 +57,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Crea una nueva alerta del sistema",
+                "description": "Creates a new system alert",
                 "consumes": [
                     "application/json"
                 ],
@@ -67,10 +67,10 @@ const docTemplate = `{
                 "tags": [
                     "alerts"
                 ],
-                "summary": "Crear alerta",
+                "summary": "Create alert",
                 "parameters": [
                     {
-                        "description": "Datos de la alerta",
+                        "description": "Alert data",
                         "name": "alert",
                         "in": "body",
                         "required": true,
@@ -105,7 +105,7 @@ const docTemplate = `{
         },
         "/api/v1/alerts/{id}": {
             "put": {
-                "description": "Actualiza una alerta existente",
+                "description": "Updates an existing alert",
                 "consumes": [
                     "application/json"
                 ],
@@ -115,17 +115,17 @@ const docTemplate = `{
                 "tags": [
                     "alerts"
                 ],
-                "summary": "Actualizar alerta",
+                "summary": "Update alert",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID de la alerta",
+                        "description": "Alert ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Datos a actualizar",
+                        "description": "Data to update",
                         "name": "alert",
                         "in": "body",
                         "required": true,
@@ -160,24 +160,24 @@ const docTemplate = `{
         },
         "/api/v1/metrics": {
             "get": {
-                "description": "Obtiene todas las métricas",
+                "description": "Gets all metrics",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "metrics"
                 ],
-                "summary": "Listar métricas",
+                "summary": "List metrics",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Máximo de resultados",
+                        "description": "Maximum number of results",
                         "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Saltar N resultados",
+                        "description": "Skip N results",
                         "name": "offset",
                         "in": "query"
                     }
@@ -200,7 +200,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Crea una nueva métrica de monitoreo",
+                "description": "Creates a new monitoring metric",
                 "consumes": [
                     "application/json"
                 ],
@@ -210,10 +210,10 @@ const docTemplate = `{
                 "tags": [
                     "metrics"
                 ],
-                "summary": "Crear métrica",
+                "summary": "Create metric",
                 "parameters": [
                     {
-                        "description": "Datos de la métrica",
+                        "description": "Metric data",
                         "name": "metric",
                         "in": "body",
                         "required": true,
@@ -248,18 +248,18 @@ const docTemplate = `{
         },
         "/api/v1/metrics/{id}": {
             "get": {
-                "description": "Obtiene una métrica por ID",
+                "description": "Gets a metric by ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "metrics"
                 ],
-                "summary": "Obtener métrica",
+                "summary": "Get metric",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID de la métrica",
+                        "description": "Metric ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -282,15 +282,15 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Elimina una métrica por ID",
+                "description": "Deletes a metric by ID",
                 "tags": [
                     "metrics"
                 ],
-                "summary": "Eliminar métrica",
+                "summary": "Delete metric",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID de la métrica",
+                        "description": "Metric ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -312,14 +312,14 @@ const docTemplate = `{
         },
         "/health": {
             "get": {
-                "description": "Devuelve el estado de la API",
+                "description": "Returns the API status",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "health"
                 ],
-                "summary": "Verificar estado del servicio",
+                "summary": "Check service health",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -411,7 +411,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "CloudPulse AI API",
-	Description:      "API de monitoreo cloud con IA",
+	Description:      "Cloud monitoring API with AI",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,55 +1,55 @@
 # ============================================
-# Comandos para CloudPulse AI
+# CloudPulse AI commands
 # ============================================
 
-# Colores para los mensajes
+# Message colors
 GREEN := \033[0;32m
 NC := \033[0m
 
-# Muestra todos los comandos disponibles
-help: ## Mostrar esta ayuda
-	@echo "Comandos disponibles:"
+# Show all available commands
+help: ## Show this help
+	@echo "Available commands:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(GREEN)%-20s$(NC) %s\n", $$1, $$2}'
 
-# Instala todas las dependencias
-install: ## Instalar dependencias
-	@echo "📦 Instalando dependencias de Go..."
+# Install all dependencies
+install: ## Install dependencies
+	@echo "📦 Installing Go dependencies..."
 	cd services/api-go && go mod download
-	@echo "✅ Listo"
+	@echo "✅ Done"
 
-# Inicia la API en Go
-dev-api: ## Iniciar API en modo desarrollo
-	@echo "🚀 Iniciando API..."
+# Start the Go API
+dev-api: ## Start API in development mode
+	@echo "🚀 Starting API..."
 	cd services/api-go && go run cmd/main.go
 
-# Inicia el frontend en React
-dev-frontend: ## Iniciar frontend
-	@echo "🚀 Iniciando frontend..."
+# Start the React frontend
+dev-frontend: ## Start frontend
+	@echo "🚀 Starting frontend..."
 	cd frontend && npm run dev
 
-# Inicia el collector en Rust
-dev-rust: ## Iniciar collector Rust
-	@echo "🚀 Iniciando collector..."
+# Start the Rust collector
+dev-rust: ## Start Rust collector
+	@echo "🚀 Starting collector..."
 	cd services/collector-rust && cargo run
 
-# Inicia todo con Docker
-docker-up: ## Iniciar todos los servicios
-	@echo "🐳 Levantando servicios..."
+# Start everything with Docker
+docker-up: ## Start all services
+	@echo "🐳 Starting services..."
 	docker-compose up -d
 
-# Detiene los servicios
-docker-down: ## Detener servicios
-	@echo "🛑 Deteniendo servicios..."
+# Stop the services
+docker-down: ## Stop services
+	@echo "🛑 Stopping services..."
 	docker-compose down
 
-# Ejecuta los tests
-test: ## Ejecutar tests
-	@echo "🧪 Ejecutando tests..."
+# Run tests
+test: ## Run tests
+	@echo "🧪 Running tests..."
 	cd services/api-go && go test ./...
 
-# Limpia archivos generados
-clean: ## Limpiar archivos
-	@echo "🧹 Limpiando..."
+# Clean generated files
+clean: ## Clean files
+	@echo "🧹 Cleaning..."
 	rm -rf services/api-go/bin
 	rm -rf services/collector-rust/target
 	rm -rf frontend/node_modules
