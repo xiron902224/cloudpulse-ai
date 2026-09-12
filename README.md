@@ -9,6 +9,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=flat&logo=typescript)](https://www.typescriptlang.org)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat&logo=kubernetes)](https://kubernetes.io)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/xiron9090/cloudpulse-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/xiron9090/cloudpulse-ai/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/xiron9090/cloudpulse-ai/branch/main/graph/badge.svg)](https://codecov.io/gh/xiron9090/cloudpulse-ai)
 
 **Cloud Monitoring System with Predictive AI**
 
@@ -34,7 +36,7 @@ CloudPulse AI is a cloud monitoring SaaS platform that uses **artificial intelli
 ## 🏗️ Architecture
 
 ┌─────────────┐ ┌──────────────┐ ┌─────────────────┐
-│ Frontend │────▶│ API Gateway │────▶│ Microservicios │
+│ Frontend │────▶│ API Gateway │────▶│ Microservices │
 │ (React) │ │ (Go) │ │ (Go) │
 └─────────────┘ └──────────────┘ └─────────────────┘
 │ │
@@ -122,9 +124,9 @@ make coverage
 
 
 📚 Documentation
-Arquitectura
+[Architecture](docs/ARCHITECTURE.md)
 
-API Reference
+[API Reference](docs/API.md)
 
 Roadmap
 

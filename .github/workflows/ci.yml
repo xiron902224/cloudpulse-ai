@@ -33,7 +33,14 @@ jobs:
       
       - name: Run tests
         working-directory: services/api-go
-        run: go test ./... -v
+        run: go test ./... -v -coverprofile=coverage.out -covermode=atomic
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: services/api-go/coverage.out
+          flags: go
+          fail_ci_if_error: false
       
       - name: Check formatting
         working-directory: services/api-go
