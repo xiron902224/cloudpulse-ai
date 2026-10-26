@@ -1,0 +1,147 @@
+/* ============================================
+   StatsCard
+   ============================================ */
+
+.stats-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Barra de color superior */
+.stats-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-primary);
+}
+
+.stats-card--primary::before { background: var(--color-primary); }
+.stats-card--success::before { background: var(--color-success); }
+.stats-card--warning::before { background: var(--color-warning); }
+.stats-card--danger::before { background: var(--color-danger); }
+
+/* ---------- Header ---------- */
+
+.stats-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stats-card__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.stats-card__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Valor principal ---------- */
+
+.stats-card__value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Tendencia ---------- */
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.trend__icon {
+  font-size: 1rem;
+}
+
+.trend--up { color: var(--color-danger); }
+.trend--down { color: var(--color-success); }
+.trend--stable { color: var(--color-info); }
+
+/* Nota: arriba en CPU/memoria es malo (rojo), abajo es bueno (verde) */
+
+/* ---------- Detalles ---------- */
+
+.stats-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.stats-card__detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+}
+
+.stats-card__detail-label {
+  color: var(--text-muted);
+}
+
+.stats-card__detail-value {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Skeleton ---------- */
+
+.stats-card__skeleton {
+  height: 180px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-md);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .stats-card {
+    padding: 1rem;
+  }
+
+  .stats-card__value {
+    font-size: 1.75rem;
+  }
+}

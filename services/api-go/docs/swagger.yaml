@@ -1,0 +1,266 @@
+basePath: /
+definitions:
+  handlers.HealthResponse:
+    properties:
+      service:
+        type: string
+      status:
+        type: string
+      timestamp:
+        type: string
+      version:
+        type: string
+    type: object
+  models.Alert:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      message:
+        type: string
+      severity:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Metric:
+    properties:
+      cpu_usage:
+        type: number
+      created_at:
+        type: string
+      disk_usage:
+        type: number
+      id:
+        type: string
+      memory_usage:
+        type: number
+      network_in:
+        type: number
+      network_out:
+        type: number
+      timestamp:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Cloud monitoring API with AI
+  title: CloudPulse AI API
+  version: "1.0"
+paths:
+  /api/v1/alerts:
+    get:
+      description: Gets all alerts
+      parameters:
+      - description: Filter by severity
+        in: query
+        name: severity
+        type: string
+      - description: Filter by status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List alerts
+      tags:
+      - alerts
+    post:
+      consumes:
+      - application/json
+      description: Creates a new system alert
+      parameters:
+      - description: Alert data
+        in: body
+        name: alert
+        required: true
+        schema:
+          $ref: '#/definitions/models.Alert'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Alert'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create alert
+      tags:
+      - alerts
+  /api/v1/alerts/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing alert
+      parameters:
+      - description: Alert ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data to update
+        in: body
+        name: alert
+        required: true
+        schema:
+          $ref: '#/definitions/models.Alert'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Alert'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update alert
+      tags:
+      - alerts
+  /api/v1/metrics:
+    get:
+      description: Gets all metrics
+      parameters:
+      - description: Maximum number of results
+        in: query
+        name: limit
+        type: integer
+      - description: Skip N results
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List metrics
+      tags:
+      - metrics
+    post:
+      consumes:
+      - application/json
+      description: Creates a new monitoring metric
+      parameters:
+      - description: Metric data
+        in: body
+        name: metric
+        required: true
+        schema:
+          $ref: '#/definitions/models.Metric'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Metric'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create metric
+      tags:
+      - metrics
+  /api/v1/metrics/{id}:
+    delete:
+      description: Deletes a metric by ID
+      parameters:
+      - description: Metric ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete metric
+      tags:
+      - metrics
+    get:
+      description: Gets a metric by ID
+      parameters:
+      - description: Metric ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Metric'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get metric
+      tags:
+      - metrics
+  /health:
+    get:
+      description: Returns the API status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.HealthResponse'
+      summary: Check service health
+      tags:
+      - health
+swagger: "2.0"

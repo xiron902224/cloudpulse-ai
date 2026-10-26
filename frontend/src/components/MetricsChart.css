@@ -1,0 +1,75 @@
+/* ============================================
+   MetricsChart
+   ============================================ */
+
+.metrics-chart {
+  width: 100%;
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+/* ---------- Estado vacío ---------- */
+
+.metrics-chart--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.metrics-chart__empty {
+  text-align: center;
+  padding: 2rem;
+}
+
+.metrics-chart__empty p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.metrics-chart__empty small {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ---------- Recharts overrides ---------- */
+
+/* Texto del tooltip */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+/* Leyenda */
+.recharts-legend-wrapper {
+  padding-top: 0.5rem;
+}
+
+.recharts-legend-item-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Grid */
+.recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+/* Línea de datos con hover */
+.recharts-line:hover {
+  filter: brightness(1.2);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .metrics-chart {
+    padding: 0.75rem;
+  }
+
+  .metrics-chart--empty {
+    min-height: 250px;
+  }
+}

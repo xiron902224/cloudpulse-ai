@@ -3,7 +3,7 @@ node_modules/
 vendor/
 target/
 
-# Variables de entorno
+# Environment variables
 .env
 .env.local
 .env.production
