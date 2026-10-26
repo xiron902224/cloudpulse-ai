@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
         "github.com/prometheus/client_golang/prometheus/promhttp"
-
+    "github.com/gofiber/contrib/websocket"
 	"github.com/xiron902224/cloudpulse-ai/api/internal/cache"
 	"github.com/xiron902224/cloudpulse-ai/api/internal/config"
 	"github.com/xiron902224/cloudpulse-ai/api/internal/database"
@@ -59,10 +59,13 @@ func main() {
 		},
 	})
 
+	 handlers.InitWebSocketHub()
 	// 6. Middlewares
 	app.Use(logger.New())
 	app.Use(recover.New())
 	app.Use(middleware.RateLimit())
+	app.Use("/ws", handlers.WebSocketUpgrade)
+    app.Get("/ws", websocket.New(handlers.WebSocketHandler))
      app.Use(middleware.PrometheusMetrics())
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",

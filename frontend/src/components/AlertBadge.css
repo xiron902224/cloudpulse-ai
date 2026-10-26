@@ -1,0 +1,172 @@
+/* ============================================
+   AlertBadge
+   ============================================ */
+
+.alert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* ---------- Tamaños ---------- */
+
+.alert-badge--sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  gap: 0.25rem;
+}
+
+.alert-badge--sm .alert-badge__dot {
+  width: 6px;
+  height: 6px;
+}
+
+.alert-badge--md {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  gap: 0.375rem;
+}
+
+.alert-badge--md .alert-badge__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.alert-badge--lg {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  gap: 0.5rem;
+}
+
+.alert-badge--lg .alert-badge__dot {
+  width: 10px;
+  height: 10px;
+}
+
+/* ---------- Variantes ---------- */
+
+.alert-badge--critical {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.alert-badge--critical .alert-badge__dot {
+  background: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.alert-badge--warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.alert-badge--warning .alert-badge__dot {
+  background: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+.alert-badge--info {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.alert-badge--info .alert-badge__dot {
+  background: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.alert-badge--neutral {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.alert-badge--neutral .alert-badge__dot {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Elementos ---------- */
+
+.alert-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.alert-badge__count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.alert-badge__label {
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* ---------- Clickeable ---------- */
+
+.alert-badge--clickable {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.alert-badge--clickable:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+}
+
+.alert-badge--clickable:active {
+  transform: translateY(0);
+}
+
+.alert-badge--clickable:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Pulse ---------- */
+
+.alert-badge--pulse .alert-badge__dot {
+  position: relative;
+}
+
+.alert-badge--pulse .alert-badge__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: alert-badge-pulse 2s ease-out infinite;
+}
+
+@keyframes alert-badge-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .alert-badge--lg {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}

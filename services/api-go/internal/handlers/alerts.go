@@ -160,13 +160,13 @@ func (h *AlertsHandler) ListAlerts(c *fiber.Ctx) error {
 	for rows.Next() {
 		var a models.Alert
 		err := rows.Scan(
-			&a.ID,
-			&a.Severity,
-			&a.Message,
-			&a.Status,
-			&a.CreatedAt,
-			&a.UpdatedAt,
-		)
+    &a.ID,
+    &a.Severity,
+    &a.Message,
+    &a.Status,
+    &a.CreatedAt,
+    &a.UpdatedAt,
+)
 		if err != nil {
 			log.Printf("Error scanning alert: %v", err)
 			continue
@@ -258,13 +258,13 @@ func (h *AlertsHandler) UpdateAlert(c *fiber.Ctx) error {
         FROM alerts WHERE id = $1
     `
 	err = h.DB.QueryRow(ctx, selectQuery, id).Scan(
-		&updated.ID,
-		&updated.Severity,
-		&updated.Message,
-		&updated.Status,
-		&updated.CreatedAt,
-		&updated.UpdatedAt,
-	)
+    &updated.ID,
+    &updated.Severity,
+    &updated.Message,
+    &updated.Status,
+    &updated.CreatedAt,
+    &updated.UpdatedAt,
+)
 	if err != nil {
 		log.Printf("Error retrieving updated alert: %v", err)
 	}

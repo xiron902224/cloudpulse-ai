@@ -1,0 +1,52 @@
+# ============================================
+# Archivos que NO se copian a la imagen Docker
+# ============================================
+
+# ---------- GIT ----------
+.git/
+.gitignore
+
+# ---------- BUILD ARTIFACTS ----------
+target/
+**/*.rs.bk
+*.pdb
+
+# ---------- CARGO ----------
+# Cargo.lock se INCLUYE (es importante para reproducibilidad)
+# Cargo.toml se INCLUYE (necesario para build)
+
+# ---------- IDE ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- VARIABLES DE ENTORNO ----------
+.env
+.env.*
+!.env.example
+
+# ---------- DOCUMENTACIÓN ----------
+*.md
+docs/
+README.md
+!README.md
+
+# ---------- DOCKER ----------
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# ---------- LOGS ----------
+*.log
+logs/
+
+# ---------- TEMPORALES ----------
+tmp/
+temp/
+*.tmp
+
+# ---------- SISTEMA ----------
+.DS_Store
+Thumbs.db

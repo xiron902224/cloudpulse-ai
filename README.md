@@ -128,7 +128,7 @@ make coverage
 
 [API Reference](docs/API.md)
 
-Roadmap
+[Sprint plan (1 developer)](docs/SPRINTS.md)
 
 📄 License
 This project is licensed under the MIT License - see LICENSE for details.
