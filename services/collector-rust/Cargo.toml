@@ -1,0 +1,28 @@
+[package]
+name = "collector-rust"
+version = "0.1.0"
+edition = "2024"
+description = "High-performance metrics collector for CloudPulse AI"
+authors = ["xiron9090"]
+license = "MIT"
+[dependencies]
+tokio = { version = "1.53.2", features = ["full"] }
+axum = "0.8.9"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+sysinfo = "0.39.6"
+reqwest = { version = "0.13.5", features = ["json"] }
+chrono = { version = "0.4.45", features = ["serde"] }
+anyhow = "1.0.104"
+
+[dev-dependencies]
+tokio-test = "0.4.6"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+panic = "abort"
